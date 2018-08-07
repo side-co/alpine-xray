@@ -1,0 +1,24 @@
+FROM alpine:latest
+
+WORKDIR /
+
+ENV XRAY_VERSION=2.0.0
+
+RUN apk update \
+    # Update and updgrage alpine packages
+    && apk upgrade \
+    # Install required packages (libc6-compat => x-ray)
+    && apk --no-cache add ca-certificates bash libc6-compat \
+    # Install packages needed for this image to build (cleaned at the end)
+    && apk --no-cache add --virtual build-dependencies curl unzip \
+    # Install AWS X-Ray daemon
+    && curl https://s3.dualstack.us-east-1.amazonaws.com/aws-xray-assets.us-east-1/xray-daemon/aws-xray-daemon-linux-2.x.zip -o install.zip \ 
+    && unzip install.zip -d xray_install \ 
+    && mv xray_install/xray /usr/bin/xray \ 
+    && rm -rf install.zip xray_install \     
+    # Clean build dependancies
+    && apk del --purge -r build-dependencies 
+
+EXPOSE 2000/udp
+
+CMD ["bash"]
