@@ -6,7 +6,7 @@ RUN apk update \
     # Update and updgrage alpine packages
     && apk upgrade \
     # Install required packages (libc6-compat => x-ray)
-    && apk --no-cache add ca-certificates bash libc6-compat \
+    && apk --no-cache add bash ca-certificates libc6-compat \
     # Install packages needed for this image to build (cleaned at the end)
     && apk --no-cache add --virtual build-dependencies curl unzip \
     # Install AWS X-Ray daemon
