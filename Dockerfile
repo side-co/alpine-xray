@@ -1,6 +1,7 @@
 FROM alpine:latest
 
 WORKDIR /
+ENV XRAY_VERSION=3.x
 
 RUN apk update \
     # Update and updgrage alpine packages
@@ -10,7 +11,7 @@ RUN apk update \
     # Install packages needed for this image to build (cleaned at the end)
     && apk --no-cache add --virtual build-dependencies curl unzip \
     # Install AWS X-Ray daemon
-    && curl https://s3.dualstack.us-east-1.amazonaws.com/aws-xray-assets.us-east-1/xray-daemon/aws-xray-daemon-linux-2.x.zip -o install.zip \ 
+    && curl https://s3.dualstack.us-east-1.amazonaws.com/aws-xray-assets.us-east-1/xray-daemon/aws-xray-daemon-linux-${XRAY_VERSION}.zip -o install.zip \ 
     && unzip install.zip -d xray_install \ 
     && mv xray_install/xray /usr/bin/xray \ 
     && rm -rf install.zip xray_install \     
