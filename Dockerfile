@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 WORKDIR /
-ENV XRAY_VERSION=2.x
+ENV XRAY_VERSION=3.x
 
 RUN apk update \
     # Update and updgrage alpine packages
