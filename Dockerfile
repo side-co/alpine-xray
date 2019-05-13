@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.9.4
 
 WORKDIR /
 ENV XRAY_VERSION=3.x
